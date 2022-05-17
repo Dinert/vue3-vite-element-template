@@ -42,9 +42,9 @@ export const firstUpperCase = (str) => {
 }
 
 // 监听窗口缩放
-export const resize = (resize) => {
+export const resize = (resize, delay = 100, immediate = false) => {
   if(typeof resize === 'function') {
-    window.addEventListener('resize', _.debounce(resize, 100), false)
+    window.addEventListener('resize', _.debounce(resize, delay), immediate)
     resize()
   }
 }

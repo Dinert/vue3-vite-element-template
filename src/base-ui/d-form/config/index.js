@@ -12,14 +12,6 @@ export const formItem = reactive({
       {value: '2', label: '哈哈2'},
     ]
   },
-  chiose2: {
-    type: 'select',
-    label: '选择',
-    options: [
-      {value: '1', label: '哈哈'},
-      {value: '2', label: '哈哈2'},
-    ]
-  },
   time:{ 
     type: 'datetimerange',
     label: '日期',
@@ -27,6 +19,14 @@ export const formItem = reactive({
     startPlaceholder: '请输入日期',
     endPlaceholder: '请输入结束日期',
     rangeSeparator: '至',
+  },
+  chiose2: {
+    type: 'select',
+    label: '选择',
+    options: [
+      {value: '1', label: '哈哈'},
+      {value: '2', label: '哈哈2'},
+    ]
   }
 })
 

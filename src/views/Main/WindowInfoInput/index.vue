@@ -44,14 +44,17 @@ watch(() => formValue.time, (newValue, oldValue) => {
       </template>
     </d-form>
     <d-table>
+      <template #header-left>
+        <el-button type="primary">新增</el-button>
+      </template>
       <template #tableColumnAfter>
         <el-table-column label="操作" prop="operation" align="center">
           <template #default>
             <div class="table-column-after">
-              <el-button type="primary" text>编缉</el-button>
-              <el-button type="danger" text>删除</el-button>
-              <el-button type="danger" text>删除</el-button>
-              <el-button type="danger" text>删除</el-button>
+              <el-link type="primary">编缉</el-link>
+              <el-link type="danger">删除</el-link>
+              <el-link type="danger">删除</el-link>
+              <el-link type="danger">删除</el-link>
             </div>
           </template>
         </el-table-column>

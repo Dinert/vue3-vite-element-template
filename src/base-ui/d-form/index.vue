@@ -57,7 +57,7 @@ onMounted(() => {
     if (clientHeight > elFormHeight.value) {
       isArrow.value = true
     } else {
-      if(!packUp.value) {
+      if (!packUp.value) {
         packUp.value = true
       }
       isArrow.value = false
@@ -178,7 +178,7 @@ defineExpose({
       </el-col>
     </el-row>
     <el-row class="el-form-right">
-      <el-button type="text" v-if="isArrow" @click="unfold">
+      <el-button type="text" v-if="isArrow" @click="unfold" class="el-form-right-operation">
         <svg class="ali-icon" aria-hidden="true" style="margin-right: 3px;">
           <use :xlink:href="packUp ? `#icon-arrow-up` : `#icon-arrow-down`"></use>
         </svg>
@@ -205,10 +205,22 @@ defineExpose({
 
   &-left {
     flex: 1;
+
+    .el-col {
+      &.datetimerange {
+        min-width: 450px;
+      }
+    }
   }
 
   &-right {
     margin-left: 20px;
+    &-operation {
+      &.el-button.is-text {
+        background-color: unset;
+        padding-right: 0;
+      }
+    }
   }
 
   &-item {
@@ -226,6 +238,7 @@ defineExpose({
       width: 100%;
     }
 
+
     ::v-deep(.el-date-editor) {
       width: 100%;
 
@@ -235,6 +248,8 @@ defineExpose({
       }
     }
 
+
+
     ::v-deep(.el-input__inner) {
       @extend .text-dot;
     }
@@ -243,92 +258,9 @@ defineExpose({
       @extend .text-dot;
       max-width: 80px;
     }
-  }
 
-
-
-  @media only screen and (min-width: 768px) {
-    .el-col-md-8 {
-      &.datetimerange {
-        max-width: 100%;
-        flex: 0 0 100%;
-      }
-
-    }
-  }
-
-  @media only screen and (min-width: 992px) {
-    .el-col-md-8 {
-      &.datetimerange {
-        max-width: 57%;
-        flex: 0 0 57%;
-      }
-
-    }
-  }
-
-  @media only screen and (min-width: 1200px) {
-    .el-col-md-8 {
-      &.datetimerange {
-        max-width: 43%;
-        flex: 0 0 43%;
-      }
-    }
-  }
-
-  @media only screen and (min-width: 1376px) {
-    .el-col-lg-4 {
-      &.datetimerange {
-        max-width: 38%;
-        flex: 0 0 38%;
-      }
-
-      &.daterange,
-      &.monthrange {
-        max-width: 20%;
-        flex: 0 0 20%;
-      }
-
-      @each $time in date,
-      week,
-      month,
-      year {
-        &.#{$time} {
-          max-width: 22%;
-          flex: 0 0 22%;
-        }
-      }
-    }
-  }
-
-  @media only screen and (min-width: 1920px) {
-    .el-col-xl-3 {
-      &.datetimerange {
-        max-width: 25%;
-        flex: 0 0 25%;
-      }
-
-      &.daterange,
-      &.monthrange {
-        max-width: 20%;
-        flex: 0 0 20%;
-      }
-
-      @each $time in date,
-      week,
-      month,
-      year {
-        &.#{$time} {
-          max-width: 15%;
-          flex: 0 0 15%;
-        }
-      }
-
-    }
 
   }
-
-
 
   .el-select {
     width: 100%;

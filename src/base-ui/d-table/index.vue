@@ -1,7 +1,7 @@
 <script setup>
 import RecuveTableColumn from './recuve-table-column'
 import { tableData, tableColumn } from './config/index'
-defineProps({
+const props = defineProps({
 
   // 表格数据
   tableData: {
@@ -43,53 +43,82 @@ defineProps({
   tableFooter: {
     type: Object,
     default: () => { }
+  },
+  showFooter: {
+    type: Boolean,
+    default: true
   }
 })
+
+// mounted
 
 // data
 const classfiyData = ref([])
 
 
+// computed
+// 过滤table的数据
+const tableColumns = computed(() => {
+  return props.tableColumn.filter(item => {
+    if (classfiyData.value.includes(item.label)) {
+      return item
+    }
+  })
+})
+
+const isAllData = computed(() => {
+  return tableColumn.length === tableColumns.value.length
+})
+
 // methods
 // 全部显示
 const allShow = () => {
-
+  classfiyData.value = []
+  getClassfiyData()
 }
 
 // 分类显示
 const getClassfiyData = () => {
-  for(const prop of tableColumn) {
+  for (const prop of props.tableColumn) {
     classfiyData.value.push(prop.label)
   }
 }
 getClassfiyData()
+
 
 </script>
 
 <template>
   <div class="d-table">
     <div class="d-table-header">
-      <el-button-group>
-        <el-button type="primary">全部显示</el-button>
-        <el-popover :teleported="false">
-          <template #reference>
-            <el-button plain>
-              分类显示
-              <svg class="ali-icon" aria-hidden="true" style="margin-left: 6px;">
-                <use xlink:href="#icon-arrow-down"></use>
-              </svg>
-            </el-button>
-          </template>
-          <ul class="el-popover-classify">
-            <li v-for="column in tableColumn" :key="column.prop">
-              <el-checkbox-group v-model="classfiyData">
-                <el-checkbox :label="column.label" :name="column.prop" :disabled="column.disabled" />
-              </el-checkbox-group>
-            </li>
-          </ul>
-        </el-popover>
+      <div class="d-table-header-left">
+        <slot name="header-left"></slot>
+      </div>
+      <div class="d-table-header-right">
+        <el-button-group>
+          <el-button :type="isAllData ? 'primary' : 'default'" @click="allShow">全部显示
+          </el-button>
+          <el-popover :teleported="false">
+            <template #reference>
+              <el-button :type="!isAllData ? 'primary' : undefined">
+                分类显示
+                <svg class="ali-icon" aria-hidden="true" style="margin-left: 6px;">
+                  <use xlink:href="#icon-arrow-down"></use>
+                </svg>
+              </el-button>
+            </template>
+            <ul class="el-popover-classify">
+              <li v-for="column in tableColumn" :key="column.prop">
+                <el-checkbox-group v-model="classfiyData">
+                  <el-checkbox :label="column.label" :name="column.prop" :disabled="column.disabled" />
+                </el-checkbox-group>
+              </li>
+            </ul>
+          </el-popover>
 
-      </el-button-group>
+        </el-button-group>
+      </div>
+
     </div>
     <div class="d-table-body">
       <el-table v-bind="{
@@ -100,7 +129,7 @@ getClassfiyData()
         rowClassName,
         headerRowClassName
       }">
-        <recuve-table-column :tableColumn="tableColumn">
+        <recuve-table-column :tableColumn="tableColumns">
           <template #default="scope">
             <slot :name="'column_' + scope.prop" v-bind="scope">
             </slot>
@@ -111,8 +140,8 @@ getClassfiyData()
         </recuve-table-column>
       </el-table>
     </div>
-    <div class="d-table-footer">
-
+    <div class="d-table-footer" v-if="showFooter">
+      
     </div>
   </div>
 </template>
@@ -129,6 +158,8 @@ getClassfiyData()
   &-header {
     text-align: right;
     margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
 
     &::v-deep(.el-popover) {
       .el-popover-classify li .el-checkbox {
@@ -137,6 +168,8 @@ getClassfiyData()
         height: 24px;
       }
     }
+
+    &-left {}
   }
 
   &-body {
