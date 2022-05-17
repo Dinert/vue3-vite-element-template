@@ -2,6 +2,7 @@
 import { getFormValue } from '@/utils'
 import DForm from '@/base-ui/d-form'
 import DTable from '@/base-ui/d-table'
+import { tableData, tableColumn } from '@/base-ui/d-table/config'
 import { formItem } from '@/base-ui/d-form/config'
 import { reset } from '@/hook'
 
@@ -43,7 +44,7 @@ watch(() => formValue.time, (newValue, oldValue) => {
         <el-button type="default" @click="reset(formValue, defaultValue)">重置</el-button>
       </template>
     </d-form>
-    <d-table>
+    <d-table v-bind="{ tableData, tableColumn }">
       <template #header-left>
         <el-button type="primary">新增</el-button>
       </template>

@@ -1,14 +1,10 @@
 <script setup>
 import RecuveTableColumn from './recuve-table-column'
-import { tableData, tableColumn } from './config/index'
 const props = defineProps({
-
   // 表格数据
   tableData: {
     type: Array,
-    default: () => {
-      return tableData
-    }
+    default: () => []
   },
 
   // 是否显示表格头
@@ -30,9 +26,7 @@ const props = defineProps({
   // table-column的数据
   tableColumn: {
     type: Array,
-    default: () => {
-      return tableColumn
-    }
+    default: () => []
   },
 
   tableHeader: {
@@ -81,7 +75,7 @@ const tableColumns = computed(() => {
 })
 
 const isAllData = computed(() => {
-  return tableColumn.length === tableColumns.value.length
+  return props.tableColumn.length === tableColumns.value.length
 })
 
 // methods
@@ -167,8 +161,8 @@ getClassfiyData()
     <div class="d-table-footer" v-if="showFooter">
       <el-pagination :currentPage="pagination.currentPage" :pageSize="pagination.pageSize"
         :page-sizes="pagination.pageSizes || [15, 30, 50, 100]" :disabled="pagination.disabled"
-        :background="pagination.background || true" :layout="pagination.layout"
-        :total="pagination.total || 100" @size-change="sizeChange" @current-change="currentChange" />
+        :background="pagination.background || true" :layout="pagination.layout" :total="pagination.total || 100"
+        @size-change="sizeChange" @current-change="currentChange" />
     </div>
   </div>
 </template>
