@@ -1,0 +1,31 @@
+html, body, #app, #app > div, #app > section{
+  height: 100%;
+}
+input:-webkit-autofill {
+  transition: background-color 5000s ease-in-out 0s;/*延时渲染背景色来去除背景色*/
+}
+.hide{
+  display: none;
+}
+
+ul, li{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.table-column-after{
+  .el-button{
+    padding: 0;
+  }
+}
+
+.text-dot {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#nprogress .bar {
+  background-color: var(--el-color-primary-dark-2)
+}

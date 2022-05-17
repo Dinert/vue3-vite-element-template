@@ -1,0 +1,13 @@
+@use 'element-plus/theme-chalk/src/message.scss';
+@use 'element-plus/theme-chalk/src/loading.scss';
+:root{
+  --el-bg-radius: 4px;
+}
+#app{
+  .el-main{
+    --el-main-padding: 0px;
+  }
+  .el-breadcrumb{
+    --el-breadcrumb-height: 40px;
+  }
+}
