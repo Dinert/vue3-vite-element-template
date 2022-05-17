@@ -47,6 +47,20 @@ const props = defineProps({
   showFooter: {
     type: Boolean,
     default: true
+  },
+  pagination: {
+    type: Object,
+    default: () => {
+      return {
+        currentPage: 3,
+        background: true,
+        total: 400,
+        disabled: false,
+        pageSize: 15,
+        total: 100,
+        layout: 'total, sizes, prev, pager, next, jumper'
+      }
+    }
   }
 })
 
@@ -75,6 +89,16 @@ const isAllData = computed(() => {
 const allShow = () => {
   classfiyData.value = []
   getClassfiyData()
+}
+
+// sizeChange
+const sizeChange = () => {
+
+}
+
+// currentChange
+const currentChange = () => {
+
 }
 
 // 分类显示
@@ -141,7 +165,10 @@ getClassfiyData()
       </el-table>
     </div>
     <div class="d-table-footer" v-if="showFooter">
-      
+      <el-pagination :currentPage="pagination.currentPage" :pageSize="pagination.pageSize"
+        :page-sizes="pagination.pageSizes || [15, 30, 50, 100]" :disabled="pagination.disabled"
+        :background="pagination.background || true" :layout="pagination.layout"
+        :total="pagination.total || 100" @size-change="sizeChange" @current-change="currentChange" />
     </div>
   </div>
 </template>
@@ -183,6 +210,11 @@ getClassfiyData()
         @extend .text-dot;
       }
     }
+  }
+
+  &-footer {
+    margin-top: 16px;
+    display: flex;
   }
 
 }
