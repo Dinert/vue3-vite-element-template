@@ -42,21 +42,37 @@ const props = defineProps({
     type: Boolean,
     default: true
   },
-  pagination: {
-    type: Object,
-    default: () => {
-      return {
-        currentPage: 3,
-        background: true,
-        total: 400,
-        disabled: false,
-        pageSize: 15,
-        total: 100,
-        layout: 'total, sizes, prev, pager, next, jumper'
-      }
-    }
+  currentPage: {
+    type: Number,
+    default: 1
+  },
+  background: {
+    type: Boolean,
+    default: true
+  },
+  total: {
+    type: Number,
+    default: 100
+  },
+  disabled: {
+    type: Boolean
+  },
+  pageSizes: {
+    type: Array,
+    default: [15, 30, 50, 70, 100]
+  },
+  pageSize: {
+    type: Number,
+    default: 15
+  },
+  layout: {
+    type: String,
+    default: 'total, sizes, prev, pager, next, jumper'
   }
 })
+
+// emit
+
 
 // mounted
 
@@ -159,9 +175,9 @@ getClassfiyData()
       </el-table>
     </div>
     <div class="d-table-footer" v-if="showFooter">
-      <el-pagination :currentPage="pagination.currentPage" :pageSize="pagination.pageSize"
-        :page-sizes="pagination.pageSizes || [15, 30, 50, 100]" :disabled="pagination.disabled"
-        :background="pagination.background || true" :layout="pagination.layout" :total="pagination.total || 100"
+      <el-pagination :current-page="currentPage" :page-size="pageSize"
+        :page-sizes="pageSizes" :disabled="disabled"
+        :background="background" :layout="layout" :total="total"
         @size-change="sizeChange" @current-change="currentChange" />
     </div>
   </div>

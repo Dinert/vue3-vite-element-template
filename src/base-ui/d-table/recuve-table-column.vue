@@ -16,7 +16,6 @@ defineProps({
       </slot>
     </template>
   </el-table-column>
-  
   <slot name="tableColumnAfter"></slot>
 </template>
 
