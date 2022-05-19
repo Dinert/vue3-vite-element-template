@@ -4,6 +4,11 @@ html, body, #app, #app > div, #app > section{
 input:-webkit-autofill {
   transition: background-color 5000s ease-in-out 0s;/*延时渲染背景色来去除背景色*/
 }
+
+ul, li{
+  list-style: none;
+}
+
 .hide{
   display: none;
 }

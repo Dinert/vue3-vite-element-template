@@ -72,12 +72,14 @@ const props = defineProps({
 })
 
 // emit
-
+const emit = defineEmits(['currentChange', 'sizeChange'])
 
 // mounted
 
 // data
 const classfiyData = ref([])
+const currentPage = ref(props.currentPage)
+const pageSize = ref(props.pageSize)
 
 
 // computed
@@ -102,13 +104,15 @@ const allShow = () => {
 }
 
 // sizeChange
-const sizeChange = () => {
-
+const sizeChange = (value) => {
+  pageSize.value = value
+  emit('sizeChange', value)
 }
 
 // currentChange
-const currentChange = () => {
-
+const currentChange = (value) => {
+  currentPage.value = value
+  emit('currentChange', value)
 }
 
 // 分类显示
@@ -175,10 +179,9 @@ getClassfiyData()
       </el-table>
     </div>
     <div class="d-table-footer" v-if="showFooter">
-      <el-pagination :current-page="currentPage" :page-size="pageSize"
-        :page-sizes="pageSizes" :disabled="disabled"
-        :background="background" :layout="layout" :total="total"
-        @size-change="sizeChange" @current-change="currentChange" />
+      <el-pagination :current-page="currentPage" :page-size="pageSize" :page-sizes="pageSizes" :disabled="disabled"
+        :background="background" :layout="layout" :total="total" @size-change="sizeChange"
+        @current-change="currentChange" />
     </div>
   </div>
 </template>

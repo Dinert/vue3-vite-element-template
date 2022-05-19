@@ -1,9 +1,9 @@
 <script setup>
-import { getFormValue } from '@/utils'
 import DForm from '@/base-ui/d-form'
 import DTable from '@/base-ui/d-table'
+import { getFormValue } from '@/utils'
 import { tableData, tableColumn } from '@/base-ui/d-table/config'
-import { formItem } from '@/base-ui/d-form/config'
+import { formItem } from './config/form'
 import { reset } from '@/hook'
 
 // ref
@@ -45,9 +45,6 @@ watch(() => formValue.time, (newValue, oldValue) => {
       </template>
     </d-form>
     <d-table v-bind="{ tableData, tableColumn }">
-      <template #header-left>
-        <el-button type="primary">新增</el-button>
-      </template>
       <template #tableColumnAfter>
         <el-table-column label="操作" prop="operation" align="center">
           <template #default>

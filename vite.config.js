@@ -6,8 +6,18 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { devPro } from './src/utils'
 
+const fs = require('fs')
+
 // https://vitejs.dev/config/
 export default defineConfig(async ({ command, mode }) => {
+  const optimizeDepsElementPlusIncludes = ['element-plus/es']
+  fs.readdirSync('node_modules/element-plus/es/components').map(dirname => {
+    fs.access(`node_modules/element-plus/es/components/${dirname}/style/css.mjs`, err => {
+      if (!err) {
+        optimizeDepsElementPlusIncludes.push(`element-plus/es/components/${dirname}/style/css`)
+      }
+    })
+  })
   return {
     base: devPro('./', '/'),
     plugins: [
@@ -36,6 +46,9 @@ export default defineConfig(async ({ command, mode }) => {
           additionalData: '@import "@/assets/style/scss/variabled.scss"; @import "@/assets/style/scss/common.scss";'
         }
       }
+    },
+    optimizeDeps: {
+      // include: optimizeDepsElementPlusIncludes
     },
     server: {
       proxy: {
