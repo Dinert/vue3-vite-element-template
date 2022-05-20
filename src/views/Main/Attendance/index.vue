@@ -1,28 +1,32 @@
 <script setup>
-import DForm from '@/base-ui/d-form'
+import TablePage from '@/components/common/table-page'
 import { formItem } from './config/form'
-import { getFormValue } from '@/utils'
-import { reset } from '@/hook'
+import { tableColumn } from './config/table'
+import { useAttendanceStore } from '@/store'
+const attendanceStore = useAttendanceStore()
 
-// data
-const formValue = reactive(getFormValue(formItem))
-const defaultValue = reactive(getFormValue(formItem))
+// computed
+const tableData = computed(() => {
+  return attendanceStore.getTableData
+})
+const total = computed(() => {
+  return attendanceStore.getTotal
+})
+
+// methods
+attendanceStore.ajaxTableData()
+
+
+// 请求表格的数据
 
 </script>
 
 <template>
-  <section class="attendance">
-    <d-form ref="searchForm" v-bind="{
-      formItem,
-      model: formValue,
-      inline: true
-    }">
-      <template #search>
-        <el-button type="primary" @click="search">查询</el-button>
-        <el-button type="default" @click="reset(formValue, defaultValue)">重置</el-button>
-      </template>
-    </d-form>
-  </section>
+  <table-page v-bind="{ formItem, tableColumn, tableData, total}">
+    <template #tableColumnAfter>
+      <el-link>删除</el-link>
+    </template>
+  </table-page>
 </template>
 
 <style lang="scss" scoped>

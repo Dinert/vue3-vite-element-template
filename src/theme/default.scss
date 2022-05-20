@@ -21,4 +21,11 @@ html,body{
   .el-breadcrumb{
     --el-breadcrumb-bg-color: #fff;
   }
+  
+  .el-table{
+    // --el-table-header-bg-color: rgba(var(--el-table-header-text-color), .5);
+    th.el-table__cell{
+      background-color: rgba(#909399, .1);
+    }
+  }
 }

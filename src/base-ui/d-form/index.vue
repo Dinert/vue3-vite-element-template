@@ -210,11 +210,18 @@ defineExpose({
       &.datetimerange {
         min-width: 450px;
       }
+      &.date{
+        min-width: 210px;
+      }
+      &.select{
+        min-width: 230px;
+      }
     }
   }
 
   &-right {
     margin-left: 20px;
+    min-width: 150px;
     &-operation {
       &.el-button.is-text {
         background-color: unset;

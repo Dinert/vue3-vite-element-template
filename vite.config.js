@@ -8,7 +8,7 @@ import { devPro } from './src/utils'
 
 const fs = require('fs')
 
-// https://vitejs.dev/config/
+// https://vitejs.dev/config/  暂时解决开发环境中Element-plus打包慢的问题
 export default defineConfig(async ({ command, mode }) => {
   const optimizeDepsElementPlusIncludes = ['element-plus/es']
   fs.readdirSync('node_modules/element-plus/es/components').map(dirname => {
@@ -48,7 +48,7 @@ export default defineConfig(async ({ command, mode }) => {
       }
     },
     optimizeDeps: {
-      // include: optimizeDepsElementPlusIncludes
+      include: optimizeDepsElementPlusIncludes
     },
     server: {
       proxy: {
