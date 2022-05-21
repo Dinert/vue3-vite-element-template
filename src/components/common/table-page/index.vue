@@ -117,17 +117,10 @@ const currentChange = (value) => {
       currentChange
     }">
       <template v-for="column in tableColumn" :key="column.prop" v-slot:[columnProp(column.prop)]="scope">
-        <slot :name="columnProp(column.prop)"></slot>
+        <slot :name="columnProp(column.prop)" v-bind="scope"></slot>
       </template>
       <template #tableColumnAfter>
-        <el-table-column label="操作" prop="operation" align="center" fixed="right"
-          v-if="isOperation && tableColumn && tableColumn.length">
-          <template #default>
-            <div class="table-column-after">
-              <slot name="tableColumnAfter"></slot>
-            </div>
-          </template>
-        </el-table-column>
+        <slot name="tableColumnAfter"></slot>
       </template>
     </d-table>
   </section>

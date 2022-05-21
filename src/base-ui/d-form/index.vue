@@ -53,7 +53,7 @@ onMounted(() => {
   resize(() => {
     const elFormLeft = document.querySelector('.el-form-left')
     const clientHeight = elFormLeft.clientHeight
-    console.log(clientHeight, elFormHeight.value)
+    
     if (clientHeight > elFormHeight.value) {
       isArrow.value = true
     } else {
@@ -156,10 +156,10 @@ defineExpose({
             <div @mouseenter="mouseEnter(index, form)">
               <span class="temp-tooltip">{{ getTooltipValue(model[key], form) }}</span>
               <template v-if="['input'].includes(form.type)">
-                <el-input v-model="model[key]" v-bind="form" v-on="form.on || {}"></el-input>
+                <el-input clearable v-model="model[key]" v-bind="form" v-on="form.on || {}"></el-input>
               </template>
               <template v-else-if="['select'].includes(form.type)">
-                <el-select v-model="model[key]" v-bind="form" v-on="form.on || {}">
+                <el-select clearable v-model="model[key]" v-bind="form" v-on="form.on || {}">
                   <el-option v-for="options in form.options" v-bind="{
                     value: options.value,
                     label: options.label
@@ -170,7 +170,7 @@ defineExpose({
               </template>
               <template
                 v-else-if="['datetime', 'date', 'week', 'month', 'year', 'datetimerange', 'daterange', 'monthrange', 'yearrange'].includes(form.type)">
-                <el-date-picker v-model="model[key]" v-bind="form" v-on="form.on || {}"></el-date-picker>
+                <el-date-picker clearable v-model="model[key]" v-bind="form" v-on="form.on || {}"></el-date-picker>
               </template>
             </div>
           </el-tooltip>

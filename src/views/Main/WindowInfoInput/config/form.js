@@ -2,15 +2,15 @@ export const formItem = reactive({
   windowType: {
     type: 'select',
     label: '窗口类型',
-    options: []
+    options: [],
   },
   name: {
     type: 'input',
-    label: '姓名'
+    label: '姓名',
   },
   sector: {
     type: 'input',
-    label: '部门'
+    label: '部门',
   },
   bigScreenShow: {
     type: 'select',

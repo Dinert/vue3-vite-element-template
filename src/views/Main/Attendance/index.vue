@@ -39,14 +39,17 @@ const currentChange = (value) => {
     formItem, tableColumn, tableData,
     total: filter.total, pageSize: filter.pageSize, currentPage: filter.currentPage
   }" v-on="{
-    search,
-    currentChange,
-    sizeChange
-  }">
-  <template #column_date>
-  </template>
+  search,
+  currentChange,
+  sizeChange
+}">
     <template #tableColumnAfter>
-      <el-link type="danger">删除</el-link>
+      <el-table-column label="操作" prop="operation" align="center" fixed="right" width="150px">
+        <div class="table-column-after">
+          <el-link type="primary">编辑</el-link>
+          <el-link type="danger">删除</el-link>
+        </div>
+      </el-table-column>
     </template>
   </table-page>
 </template>

@@ -1,74 +1,71 @@
 <script setup>
-import DForm from '@/base-ui/d-form'
-import DTable from '@/base-ui/d-table'
-import { getFormValue } from '@/utils'
-import { tableData, tableColumn } from '@/base-ui/d-table/config'
+import TablePage from '@/components/common/table-page'
 import { formItem } from './config/form'
-import { reset } from '@/hook'
-
-// ref
-const searchForm = ref(null)
-
-// Mounted
-onMounted(() => {
-  console.log(searchForm.value.form, 'demoForm.value')
-})
+import { tableColumn } from './config/table'
+import { useWindowInfoInput } from '@/store'
+const windowInfoInput = useWindowInfoInput()
 
 // data
-const formValue = reactive(getFormValue(formItem))
-const defaultValue = reactive(getFormValue(formItem))
+const enables = ref({})
+
+// computed
+const tableData = computed(() => {
+  return windowInfoInput.getTableData
+})
+
+const filter = computed(() => {
+  return windowInfoInput.getFilter
+})
 
 // methods
+windowInfoInput.ajaxTableData()
 
-// 查询
-const search = () => {
-  console.log('查询', '哈哈哈')
+// 开关状态改变
+const swichChange = (row) => {
+  console.log(row, 'rowwwwwwwwwwwwwwww')
 }
 
-// watch
-watch(() => formValue.time, (newValue, oldValue) => {
-  console.log(newValue, oldValue)
-})
+// 查询
+const search = (params) => {
+  windowInfoInput.ajaxTableData(params)
+}
+
+// 当前页条数
+const sizeChange = (value) => {
+  windowInfoInput.filter.pageSize = value
+}
+
+// 页数
+const currentChange = (value) => {
+  windowInfoInput.filter.currentPage = value
+}
 
 </script>
 
 <template>
-  <section class="windowInfoInput">
-    <d-form ref="searchForm" v-bind="{
-      formItem,
-      model: formValue,
-      inline: true
-    }">
-      <template #search>
-        <el-button type="primary" @click="search">查询</el-button>
-        <el-button type="default" @click="reset(formValue, defaultValue)">重置</el-button>
-      </template>
-    </d-form>
-    <d-table v-bind="{ tableData, tableColumn }">
-      <template #tableColumnAfter>
-        <el-table-column label="操作" prop="operation" align="center">
-          <template #default>
-            <div class="table-column-after">
-              <el-link type="primary">编缉</el-link>
-              <el-link type="danger">删除</el-link>
-              <el-link type="danger">删除</el-link>
-              <el-link type="danger">删除</el-link>
-            </div>
-          </template>
-        </el-table-column>
-      </template>
-    </d-table>
-  </section>
+  <table-page v-bind="{
+    formItem, tableColumn, tableData,
+    total: filter.total, pageSize: filter.pageSize, currentPage: filter.currentPage
+  }" v-on="{
+  search,
+  currentChange,
+  sizeChange
+}">
+    <template #column_enable="{ row }">
+      <el-switch @change="swichChange(row)" v-model="row.enable" active-text="显示" inactive-text="隐藏"></el-switch>
+    </template>
+    <template #tableColumnAfter>
+      <el-table-column label="操作" prop="operation" align="center" fixed="right" width="200px">
+        <div class="table-column-after">
+          <el-link type="primary">查看照片</el-link>
+          <el-link type="primary">编辑</el-link>
+          <el-link type="danger">删除</el-link>
+        </div>
+      </el-table-column>
+    </template>
+  </table-page>
 </template>
 
 <style lang="scss" scoped>
-.windowInfoInput {
-  display: flex;
-  flex-direction: column;
-
-  .d-table {
-    flex: 1;
-    height: 0;
-  }
-}
+.attendance {}
 </style>

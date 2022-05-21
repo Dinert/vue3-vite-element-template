@@ -1,16 +1,15 @@
 import { defineStore } from "pinia";
 import request from '@/service/request'
 import _ from 'lodash'
-import dayjs from "dayjs";
-import {paginations} from '@/base-ui/d-table/config'
+import dayjs from 'dayjs'
 
-export const useAttendanceStore = defineStore('attendance', {
+export const useWindowInfoInput = defineStore('windowInfoInput', {
   state: () => ({
     tableData: [],
     filter: {
       total: 0,
-      pageSize: paginations.pageSize,
-      currentPage: paginations.currentPage
+      pageSize: 15,
+      currentPage: 1
     }
   }),
   getters: {
@@ -22,7 +21,6 @@ export const useAttendanceStore = defineStore('attendance', {
       tableData = tableData.slice((currentPage - 1) * pageSize, pageSize * currentPage)
       tableData.forEach(item => {
         const data = JSON.parse(item.data)
-        data.unAttendance = data.total - data.attendance
         result.push(data)
       })
       return result
@@ -37,7 +35,7 @@ export const useAttendanceStore = defineStore('attendance', {
         const tableData = await request({
           url: '/common-data/get/all',
           params: {
-            type: 'attendance'
+            type: 'window_person'
           }
         })
 
@@ -45,25 +43,25 @@ export const useAttendanceStore = defineStore('attendance', {
         const isParams = !(_.isEmpty(params))
 
         // 有就过滤表格中的数据
-        if(isParams) {
+        if (isParams) {
           this.tableData = tableData.filter(item => {
             const data = JSON.parse(item.data)
-            for(const prop in params) {
+            for (const prop in params) {
               let paramsVal = params[prop]
               let itemVal = data[prop]
-              if(dayjs(paramsVal).isValid()) {
+              if (dayjs(paramsVal).isValid()) {
                 paramsVal = dayjs(paramsVal).format('YYYY-MM-DD')
                 itemVal = dayjs(itemVal).format('YYYY-MM-DD')
               }
-              if(paramsVal === itemVal) {
+              if (paramsVal === itemVal) {
                 return item
               }
             }
           })
-        }else {
+        } else {
           this.tableData = tableData
         }
-      
+
         this.filter.total = this.tableData.length
         resolve(this.tableData)
       })
