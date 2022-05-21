@@ -1,4 +1,5 @@
 import _ from 'lodash'
+
 // 生成颜色值
 export const mix = (color1, color2, weight) => {
   weight = Math.max(Math.min(Number(weight), 1), 0);

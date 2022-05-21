@@ -9,22 +9,44 @@ const attendanceStore = useAttendanceStore()
 const tableData = computed(() => {
   return attendanceStore.getTableData
 })
-const total = computed(() => {
-  return attendanceStore.getTotal
+
+const filter = computed(() => {
+  return attendanceStore.getFilter
 })
 
 // methods
 attendanceStore.ajaxTableData()
 
+// 查询
+const search = (params) => {
+  attendanceStore.ajaxTableData(params)
+}
 
-// 请求表格的数据
+// 当前页条数
+const sizeChange = (value) => {
+  attendanceStore.filter.pageSize = value
+}
+
+// 页数
+const currentChange = (value) => {
+  attendanceStore.filter.currentPage = value
+}
 
 </script>
 
 <template>
-  <table-page v-bind="{ formItem, tableColumn, tableData, total}">
+  <table-page v-bind="{
+    formItem, tableColumn, tableData,
+    total: filter.total, pageSize: filter.pageSize, currentPage: filter.currentPage
+  }" v-on="{
+    search,
+    currentChange,
+    sizeChange
+  }">
+  <template #column_date>
+  </template>
     <template #tableColumnAfter>
-      <el-link>删除</el-link>
+      <el-link type="danger">删除</el-link>
     </template>
   </table-page>
 </template>

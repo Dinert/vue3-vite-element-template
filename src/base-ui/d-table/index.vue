@@ -78,9 +78,6 @@ const emit = defineEmits(['currentChange', 'sizeChange'])
 
 // data
 const classfiyData = ref([])
-const currentPage = ref(props.currentPage)
-const pageSize = ref(props.pageSize)
-
 
 // computed
 // 过滤table的数据
@@ -105,13 +102,11 @@ const allShow = () => {
 
 // sizeChange
 const sizeChange = (value) => {
-  pageSize.value = value
   emit('sizeChange', value)
 }
 
 // currentChange
 const currentChange = (value) => {
-  currentPage.value = value
   emit('currentChange', value)
 }
 

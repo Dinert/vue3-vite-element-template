@@ -3,13 +3,14 @@ import DForm from '@/base-ui/d-form'
 import DTable from '@/base-ui/d-table'
 import { getFormValue } from '@/utils'
 import { reset } from '@/hook'
+import { computed } from '@vue/reactivity';
 
 const props = defineProps({
 
   // form表单的配置
   formItem: {
     type: Object,
-    default: () => {}
+    default: () => { }
   },
 
   // 表格的数据
@@ -23,21 +24,33 @@ const props = defineProps({
     type: Array,
     default: () => []
   },
-  
+
   // 是否显示操作
   isOperation: {
     type: Boolean,
     default: true
   },
 
-  // 表格总条数
+  // 表格数据总条数
   total: {
     type: Number
+  },
+
+  // 当前页数
+  currentPage: {
+    type: Number,
+    default: 1
+  },
+
+  // 一页显示的条数
+  pageSize: {
+    type: Number,
+    default: 15
   }
 })
 
 // emit
-const emit = defineEmits(['search'])
+const emit = defineEmits(['search', 'currentChange', 'sizeChange'])
 
 // Mounted
 
@@ -53,18 +66,35 @@ const defaultValue = reactive(getFormValue(props.formItem))
 // 查询
 const search = (formValue, isFilter = true) => {
   let tempObj = {}
-  if(isFilter) {
-    for(const prop in formValue) {
+  if (isFilter) {
+    for (const prop in formValue) {
       const value = formValue[prop]
-      if(!['', null, undefined].includes(value)) {
+      if (!['', null, undefined].includes(value)) {
         tempObj[prop] = formValue[prop]
       }
     }
-  }else {
+  } else {
     tempObj = formValue
   }
   emit('search', tempObj)
 }
+
+// column的prop
+const columnProp = (prop) => {
+  return 'column_' + prop
+}
+
+
+// 当前页条数
+const sizeChange = (value) => {
+  emit('sizeChange', value)
+}
+
+// 页数
+const currentChange = (value) => {
+  emit('currentChange', value)
+}
+
 
 // watch
 
@@ -82,13 +112,16 @@ const search = (formValue, isFilter = true) => {
         <el-button type="default" @click="reset(formValue, defaultValue, search)">重置</el-button>
       </template>
     </d-form>
-    <d-table v-bind="{ tableData, tableColumn, total }">
-      <template #default="scope">
-          <slot :name="'column_' + scope.prop" v-bind="scope">
-          </slot>
+    <d-table v-bind="{ tableData, tableColumn, total, currentPage, pageSize }" v-on="{
+      sizeChange,
+      currentChange
+    }">
+      <template v-for="column in tableColumn" :key="column.prop" v-slot:[columnProp(column.prop)]="scope">
+        <slot :name="columnProp(column.prop)"></slot>
       </template>
       <template #tableColumnAfter>
-        <el-table-column label="操作" prop="operation" align="center" v-if="isOperation && tableColumn && tableColumn.length">
+        <el-table-column label="操作" prop="operation" align="center" fixed="right"
+          v-if="isOperation && tableColumn && tableColumn.length">
           <template #default>
             <div class="table-column-after">
               <slot name="tableColumnAfter"></slot>
@@ -101,10 +134,11 @@ const search = (formValue, isFilter = true) => {
 </template>
 
 <style lang="scss" scoped>
-.table-page{
+.table-page {
   display: flex;
   flex-direction: column;
-  .d-table{
+
+  .d-table {
     flex: 1;
     height: 0;
   }
