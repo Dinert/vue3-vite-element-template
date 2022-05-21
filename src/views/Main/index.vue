@@ -3,15 +3,19 @@ import NavMenu from "@/components/common/nav-menu";
 import NavBanner from "@/components/common/nav-banner";
 import { useLoginStore } from "@/store";
 import { storage } from "@/utils";
+import { watch } from "vue";
+
 
 // init
 const loginStore = useLoginStore();
 loginStore.setLoginValue();
 const router = useRouter();
+const route = useRoute();
 
 // data
 const menuList = ref([]);
 const collapse = ref(false);
+const isOverflow = ref(false)
 
 // methods
 loginStore.getMenuList().then((data) => {
@@ -30,6 +34,9 @@ const collapseClick = () => {
 const aaa = (aaa) => {
   console.log(aaa, 'aaaaaaaaaaaaa')
 }
+
+
+
 </script>
 
 <template>
@@ -61,7 +68,7 @@ const aaa = (aaa) => {
         <el-header>
           <nav-banner></nav-banner>
         </el-header>
-        <el-main>
+        <el-main :style="{ overflow: isOverflow ? 'auto' : 'hide' }">
           <router-view v-slot="scope">
             <transition name="fade-transform" mode="out-in">
               <component :is="scope.Component" :key="scope.route.key" />
@@ -143,11 +150,13 @@ const aaa = (aaa) => {
       .el-main {
         position: relative;
         background-color: var(--el-bg-color-page);
-        overflow: hidden;
-        &>section {
+        overflow-x: hidden;
+        & > section {
           height: 100%;
           padding: 16px;
           box-sizing: border-box;
+          overflow-y: auto;
+          min-height: 500px;
         }
       }
     }

@@ -198,6 +198,7 @@ defineExpose({
   overflow: hidden;
   transition: var(--el-transition-all);
   max-height: 300px;
+  min-height: 50px;
 
   &.packUp {
     max-height: 50px;

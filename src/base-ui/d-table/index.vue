@@ -190,6 +190,7 @@ getClassfiyData()
   display: flex;
   flex-direction: column;
 
+
   &-header {
     text-align: right;
     margin-bottom: 12px;

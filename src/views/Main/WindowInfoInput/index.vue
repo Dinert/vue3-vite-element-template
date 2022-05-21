@@ -5,6 +5,7 @@ import { tableColumn } from './config/table'
 import { useWindowInfoInput } from '@/store'
 const windowInfoInput = useWindowInfoInput()
 
+
 // data
 const enables = ref({})
 
@@ -22,7 +23,6 @@ windowInfoInput.ajaxTableData()
 
 // 开关状态改变
 const swichChange = (row) => {
-  console.log(row, 'rowwwwwwwwwwwwwwww')
 }
 
 // 查询

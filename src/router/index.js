@@ -80,8 +80,9 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to) => {
+router.beforeEach((to, from) => {
   NProgress.start()
+  from.meta.isOverflow = false
   const token = storage('localStorage', 'zwjd-token');
   if (to.path !== '/login') {
     if (!token) {
@@ -94,7 +95,8 @@ router.beforeEach((to) => {
   }
 })
 
-router.afterEach(() => {
+router.afterEach((to) => {
+  to.meta.isOverflow = true
   NProgress.done()
 })
 

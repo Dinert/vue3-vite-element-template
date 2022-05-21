@@ -1,15 +1,15 @@
 import { defineStore } from "pinia";
 import request from '@/service/request'
 import _ from 'lodash'
-import dayjs from 'dayjs'
+import {paginations} from '@/base-ui/d-table/config'
 
 export const useWindowInfoInput = defineStore('windowInfoInput', {
   state: () => ({
     tableData: [],
     filter: {
       total: 0,
-      pageSize: 15,
-      currentPage: 1
+      pageSize: paginations.pageSize,
+      currentPage: paginations.currentPage
     }
   }),
   getters: {
@@ -49,10 +49,6 @@ export const useWindowInfoInput = defineStore('windowInfoInput', {
             for (const prop in params) {
               let paramsVal = params[prop]
               let itemVal = data[prop]
-              if (dayjs(paramsVal).isValid()) {
-                paramsVal = dayjs(paramsVal).format('YYYY-MM-DD')
-                itemVal = dayjs(itemVal).format('YYYY-MM-DD')
-              }
               if (paramsVal === itemVal) {
                 return item
               }
