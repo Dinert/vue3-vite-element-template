@@ -41,17 +41,27 @@ export const useWindowInfoInput = defineStore('windowInfoInput', {
 
         // 判断是否有参数
         const isParams = !(_.isEmpty(params))
+        console.log(params, 'aaaaaaaaaaaa')
 
         // 有就过滤表格中的数据
         if (isParams) {
           this.tableData = tableData.filter(item => {
             const data = JSON.parse(item.data)
+            let itemVals = ''
+            let paramsVals = ''
             for (const prop in params) {
               let paramsVal = params[prop]
               let itemVal = data[prop]
-              if (paramsVal === itemVal) {
-                return item
+              
+              if(prop === 'month') {
+                paramsVal = dayjs(paramsVal).format('YYYY-MM-DD')
+                itemVal = dayjs(itemVal).format('YYYY-MM-DD')
               }
+              itemVals += itemVal
+              paramsVals += paramsVal
+            }
+            if(itemVals === paramsVals) {
+              return item
             }
           })
         } else {

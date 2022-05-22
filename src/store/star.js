@@ -1,10 +1,10 @@
 import { defineStore } from "pinia";
 import request from '@/service/request'
 import _ from 'lodash'
-import dayjs from "dayjs";
+import dayjs from "dayjs"
 import {paginations} from '@/base-ui/d-table/config'
 
-export const useAttendanceStore = defineStore('attendance', {
+export const useStar = defineStore('star', {
   state: () => ({
     tableData: [],
     filter: {
@@ -22,7 +22,6 @@ export const useAttendanceStore = defineStore('attendance', {
       tableData = tableData.slice((currentPage - 1) * pageSize, pageSize * currentPage)
       tableData.forEach(item => {
         const data = JSON.parse(item.data)
-        data.unAttendance = data.total - data.attendance
         result.push(data)
       })
       return result
@@ -37,7 +36,7 @@ export const useAttendanceStore = defineStore('attendance', {
         const tableData = await request({
           url: '/common-data/get/all',
           params: {
-            type: 'attendance'
+            type: 'star'
           }
         })
 
@@ -45,7 +44,7 @@ export const useAttendanceStore = defineStore('attendance', {
         const isParams = !(_.isEmpty(params))
 
         // 有就过滤表格中的数据
-        if(isParams) {
+        if (isParams) {
           this.tableData = tableData.filter(item => {
             const data = JSON.parse(item.data)
             let itemVals = ''
@@ -64,11 +63,12 @@ export const useAttendanceStore = defineStore('attendance', {
             if(itemVals === paramsVals) {
               return item
             }
+
           })
-        }else {
+        } else {
           this.tableData = tableData
         }
-      
+
         this.filter.total = this.tableData.length
         resolve(this.tableData)
       })

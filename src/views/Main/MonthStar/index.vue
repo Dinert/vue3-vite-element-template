@@ -2,24 +2,24 @@
 import TablePage from '@/components/common/table-page'
 import { formItem } from './config/form'
 import { tableColumn } from './config/table'
-import { useWindowInfoInput } from '@/store'
-const windowInfoInput = useWindowInfoInput()
+import { useStar } from '@/store'
+const star = useStar()
 
 
 // data
-const enables = ref({})
+
 
 // computed
 const tableData = computed(() => {
-  return windowInfoInput.getTableData
+  return star.getTableData
 })
 
 const filter = computed(() => {
-  return windowInfoInput.getFilter
+  return star.getFilter
 })
 
 // methods
-windowInfoInput.ajaxTableData()
+star.ajaxTableData()
 
 // 开关状态改变
 const swichChange = (row) => {
@@ -27,17 +27,17 @@ const swichChange = (row) => {
 
 // 查询
 const search = (params) => {
-  windowInfoInput.ajaxTableData(params)
+  star.ajaxTableData(params)
 }
 
 // 当前页条数
 const sizeChange = (value) => {
-  windowInfoInput.filter.pageSize = value
+  star.filter.pageSize = value
 }
 
 // 页数
 const currentChange = (value) => {
-  windowInfoInput.filter.currentPage = value
+  star.filter.currentPage = value
 }
 
 </script>
@@ -67,5 +67,5 @@ const currentChange = (value) => {
 </template>
 
 <style lang="scss" scoped>
-.windowInfoInput {}
+.monthStart {}
 </style>

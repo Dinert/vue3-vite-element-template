@@ -32,6 +32,14 @@ const routes = [
         component: () => import('@/views/Main/Attendance'),
       },
       {
+        path: 'star',
+        name: 'MonthStar',
+        meta: {
+          title: '月度服务之星'
+        },
+        component: () => import('@/views/Main/MonthStar'),
+      },
+      {
         path: '/admin',
         name: 'Admin',
         redirect: '/admin/organization',
