@@ -1,0 +1,59 @@
+<script setup>
+import TablePage from '@/components/common/table-page'
+import { formItem } from './config/form'
+import { tableColumn } from './config/table'
+import { useRateStore } from '@/store'
+const rate = useRateStore()
+
+// computed
+const tableData = computed(() => {
+  return rate.getTableData
+})
+
+const filter = computed(() => {
+  return rate.getFilter
+})
+
+// methods
+rate.ajaxTableData()
+
+// 查询
+const search = (params) => {
+  rate.ajaxTableData(params)
+}
+
+// 当前页条数
+const sizeChange = (value) => {
+  rate.filter.pageSize = value
+}
+
+// 页数
+const currentChange = (value) => {
+  rate.filter.currentPage = value
+}
+
+</script>
+
+<template>
+  <table-page v-bind="{
+    formItem, tableColumn, tableData,
+    total: filter.total, pageSize: filter.pageSize, currentPage: filter.currentPage
+  }" v-on="{
+  search,
+  currentChange,
+  sizeChange
+}">
+    <template #tableColumnAfter>
+      <el-table-column label="操作" prop="operation" align="center" fixed="right" width="150px">
+        <div class="table-column-after">
+          <el-link type="primary">编辑</el-link>
+          <el-link type="danger">删除</el-link>
+        </div>
+      </el-table-column>
+    </template>
+  </table-page>
+</template>
+
+<style lang="scss" scoped>
+.rate {}
+</style>

@@ -35,9 +35,17 @@ const routes = [
         path: 'star',
         name: 'MonthStar',
         meta: {
-          title: '月度服务之星'
+          title: '月度服务之星录入'
         },
         component: () => import('@/views/Main/MonthStar'),
+      },
+      {
+        path: 'rate',
+        name: 'Rate',
+        meta: {
+          title: '政务服务质量录入'
+        },
+        component: () => import('@/views/Main/Rate'),
       },
       {
         path: '/admin',
