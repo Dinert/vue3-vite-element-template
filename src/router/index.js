@@ -48,6 +48,22 @@ const routes = [
         component: () => import('@/views/Main/Rate'),
       },
       {
+        path: 'hallDevice',
+        name: 'HallDevice',
+        meta: {
+          title: '大厅设施情况录入'
+        },
+        component: () => import('@/views/Main/HallDevice'),
+      },
+      {
+        path: 'governmentEntry',
+        name: 'governmentEntry',
+        meta: {
+          title: '政务服务事项录入'
+        },
+        component: () => import('@/views/Main/GovernmentEntry'),
+      },
+      {
         path: '/admin',
         name: 'Admin',
         redirect: '/admin/organization',

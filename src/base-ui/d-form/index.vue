@@ -214,6 +214,10 @@ defineExpose({
       &.date{
         min-width: 210px;
       }
+      &.month{
+        min-width: 190px;
+      }
+
       &.select{
         min-width: 230px;
       }

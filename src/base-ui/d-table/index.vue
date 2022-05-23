@@ -13,6 +13,17 @@ const props = defineProps({
     default: true
   },
 
+  height: {
+    type: [Number, String],
+    default: '100%'
+  },
+
+  // 是否显示表格控制栏
+  showTitle: {
+    type: Boolean,
+    default: true
+  },
+
   // 行的className的回调
   rowClassName: {
     type: [Function, String],
@@ -123,7 +134,7 @@ getClassfiyData()
 
 <template>
   <div class="d-table">
-    <div class="d-table-header">
+    <div class="d-table-header" v-if="showTitle">
       <div class="d-table-header-left">
         <slot name="header-left"></slot>
       </div>
@@ -156,7 +167,7 @@ getClassfiyData()
     <div class="d-table-body">
       <el-table v-bind="{
         data: tableData,
-        height: '100%',
+        height: height,
         border: true,
         showHeader,
         rowClassName,
@@ -213,7 +224,6 @@ getClassfiyData()
     height: 0;
 
     .el-table {
-      height: 100%;
 
       ::v-deep(.cell > div) {
         @extend .text-dot;
