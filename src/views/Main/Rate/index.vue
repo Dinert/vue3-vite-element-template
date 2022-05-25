@@ -36,8 +36,8 @@ const currentChange = (value) => {
 
 <template>
   <table-page v-bind="{
-    formItem, tableColumn, tableData,
-    total: filter.total, pageSize: filter.pageSize, currentPage: filter.currentPage
+    formItem, tableColumn, table: {data: tableData},
+    pagination: filter
   }" v-on="{
   search,
   currentChange,

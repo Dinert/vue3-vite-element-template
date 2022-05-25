@@ -1,37 +1,15 @@
 <script setup>
 import RecuveTableColumn from './recuve-table-column'
 const props = defineProps({
-  // 表格数据
-  tableData: {
-    type: Array,
-    default: () => []
+  table: {
+    type: Object,
+    default: () => {}
   },
 
-  // 是否显示表格头
+  // 表格头控制栏
   showHeader: {
     type: Boolean,
     default: true
-  },
-
-  height: {
-    type: [Number, String],
-    default: '100%'
-  },
-
-  // 是否显示表格控制栏
-  showTitle: {
-    type: Boolean,
-    default: true
-  },
-
-  // 行的className的回调
-  rowClassName: {
-    type: [Function, String],
-  },
-
-  // 表头行的className的回调
-  headerRowClassName: {
-    type: [Function, String],
   },
 
   // table-column的数据
@@ -40,46 +18,17 @@ const props = defineProps({
     default: () => []
   },
 
-  tableHeader: {
-    type: Object,
-    default: () => { }
-  },
-
-  tableFooter: {
-    type: Object,
-    default: () => { }
-  },
+  // 表格尾部
   showFooter: {
     type: Boolean,
     default: true
   },
-  currentPage: {
-    type: Number,
-    default: 1
+
+  // 分页
+  pagination: {
+    type: Object,
+    default: () => {}
   },
-  background: {
-    type: Boolean,
-    default: true
-  },
-  total: {
-    type: Number,
-    default: 100
-  },
-  disabled: {
-    type: Boolean
-  },
-  pageSizes: {
-    type: Array,
-    default: [15, 30, 50, 70, 100]
-  },
-  pageSize: {
-    type: Number,
-    default: 15
-  },
-  layout: {
-    type: String,
-    default: 'total, sizes, prev, pager, next, jumper'
-  }
 })
 
 // emit
@@ -134,7 +83,7 @@ getClassfiyData()
 
 <template>
   <div class="d-table">
-    <div class="d-table-header" v-if="showTitle">
+    <div class="d-table-header" v-if="showHeader">
       <div class="d-table-header-left">
         <slot name="header-left"></slot>
       </div>
@@ -166,13 +115,12 @@ getClassfiyData()
     </div>
     <div class="d-table-body">
       <el-table v-bind="{
-        data: tableData,
-        height: height,
+        data: [],
+        height: '100%',
         border: true,
-        showHeader,
-        rowClassName,
-        headerRowClassName
-      }">
+        showHeader: true,
+        ...table
+      }" v-on="{...table.on}">
         <recuve-table-column :tableColumn="tableColumns">
           <template #default="scope">
             <slot :name="'column_' + scope.prop" v-bind="scope">
@@ -185,9 +133,19 @@ getClassfiyData()
       </el-table>
     </div>
     <div class="d-table-footer" v-if="showFooter">
-      <el-pagination :current-page="currentPage" :page-size="pageSize" :page-sizes="pageSizes" :disabled="disabled"
-        :background="background" :layout="layout" :total="total" @size-change="sizeChange"
-        @current-change="currentChange" />
+      <el-pagination v-bind="{
+        currentPage: 1,
+        pageSize: 15,
+        pageSizes: [15, 30, 50, 70, 100],
+        background: true,
+        layout: 'total, sizes, prev, pager, next, jumper',
+        total: 100,
+        ...pagination
+      }" v-on="{
+        sizeChange,
+        currentChange,
+        ...pagination.on
+      }"/>
     </div>
   </div>
 </template>

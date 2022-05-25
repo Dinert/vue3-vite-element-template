@@ -35,16 +35,17 @@ for (let i = 0; i < tables.length; i++) {
 
 <template>
   <section class="governmentEntry">
-    <d-table v-bind="{ tableColumn, showFooter: false, showTitle: false, tableData: tableData1 }"></d-table>
-    <d-table v-bind="{ tableColumn, showFooter: false, showTitle: false, tableData: tableData2 }"></d-table>
-    <d-table v-bind="{ tableColumn, showFooter: false, showTitle: false, tableData: tableData3 }"></d-table>
+    <d-table v-bind="{ tableColumn, showFooter: false, showHeader: false, table: { data: tableData1 } }"></d-table>
+    <d-table v-bind="{ tableColumn, showFooter: false, showHeader: false, table: { data: tableData2 } }"></d-table>
+    <d-table v-bind="{ tableColumn, showFooter: false, showHeader: false, table: { data: tableData3 } }"></d-table>
   </section>
 </template>
 
 <style lang="scss" scoped>
 .governmentEntry {
+
   // height: 1005;
-  .d-table{
+  .d-table {
     height: 80px;
   }
 }

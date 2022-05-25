@@ -4,30 +4,21 @@ import { firstUpperCase, resize } from '@/utils'
 // props
 defineProps({
   ref,
-  rules: {
-    type: Array,
-    default: () => [],
-  },
-  labelWidth: {
-    type: String,
-  },
   formItem: {
     type: Object,
-    default: () => [],
+    default: () => {},
   },
   model: {
     type: Object,
-    default: () => { },
+    default: () => {},
   },
-  inline: {
-    type: Boolean,
-    default: true
+  form: {
+    type: Object,
+    default: () => {}
   },
   row: {
     type: Object,
-    default: () => ({
-      gutter: 20
-    })
+    default: () => {}
   },
   colLayout: {
     type: Object,
@@ -66,7 +57,7 @@ onMounted(() => {
 })
 
 // data
-const form = ref(null)
+const formRef = ref(null)
 const setFormArr = []
 const elFormHeight = ref(60)
 const isArrow = ref(false) // 是否显示展示操作
@@ -120,57 +111,55 @@ const getTooltipValue = (value, form) => {
 
 // expose
 defineExpose({
-  form
+  formRef
 })
 </script>
 
 <template>
   <el-form v-bind="{
-    model,
-    rules,
-    labelWidth,
-    inline,
-  }" ref="form" :class="{ packUp: !packUp }">
-    <el-row v-bind="row" class="el-form-left">
-      <el-col v-bind="colLayout" v-for="(form, key, index) in formItem" :class="[form.type]">
+    inline: true,
+    ...form
+  }" ref="formRef" :class="{ packUp: !packUp }">
+    <el-row v-bind="{gutter: 20, ...row}" class="el-form-left">
+      <el-col v-bind="colLayout" v-for="(item, key, index) in formItem" :class="[form.type]">
         <el-form-item v-bind="{
           key: key,
           prop: key,
-          label: form.label,
-          ref: setForm
+          label: item.label,
+          ref: setForm,
         }">
           <template #label>
             <el-tooltip v-bind="{
-              content: form['label'],
+              content: item['label'],
               placement: 'top',
-              disabled: isDisabledLabel(form.label)
+              disabled: isDisabledLabel(item.label)
             }">
-              {{ form['label'] }}
+              {{ item['label'] }}
             </el-tooltip>
           </template>
           <el-tooltip v-bind="{
-            content: getTooltipValue(model[key], form),
+            content: getTooltipValue(form.model[key], item),
             placement: 'top',
-            disabled: !form.tooltip
+            disabled: !item.tooltip
           }">
-            <div @mouseenter="mouseEnter(index, form)">
-              <span class="temp-tooltip">{{ getTooltipValue(model[key], form) }}</span>
-              <template v-if="['input'].includes(form.type)">
-                <el-input clearable v-model="model[key]" v-bind="form" v-on="form.on || {}"></el-input>
+            <div @mouseenter="mouseEnter(index, item)">
+              <span class="temp-tooltip">{{ getTooltipValue(form.model[key], item) }}</span>
+              <template v-if="['input'].includes(item.type)">
+                <el-input clearable v-model="form.model[key]" v-bind="item" v-on="{...item.on}"></el-input>
               </template>
-              <template v-else-if="['select'].includes(form.type)">
-                <el-select clearable v-model="model[key]" v-bind="form" v-on="form.on || {}">
-                  <el-option v-for="options in form.options" v-bind="{
+              <template v-else-if="['select'].includes(item.type)">
+                <el-select clearable v-model="form.model[key]" v-bind="item" v-on="{...item.on}">
+                  <el-option v-for="options in item.options" v-bind="{
                     value: options.value,
                     label: options.label
-                  }" v-on="form.on || {}">
-                    <slot :name="form.type + firstUpperCase(key)" :options="options"></slot>
+                  }" v-on="{...item.on}">
+                    <slot :name="item.type + firstUpperCase(key)" :options="options"></slot>
                   </el-option>
                 </el-select>
               </template>
               <template
-                v-else-if="['datetime', 'date', 'week', 'month', 'year', 'datetimerange', 'daterange', 'monthrange', 'yearrange'].includes(form.type)">
-                <el-date-picker clearable v-model="model[key]" v-bind="form" v-on="form.on || {}"></el-date-picker>
+                v-else-if="['datetime', 'date', 'week', 'month', 'year', 'datetimerange', 'daterange', 'monthrange', 'yearrange'].includes(item.type)">
+                <el-date-picker clearable v-model="form.model[key]" v-bind="item" v-on="{...item.on}"></el-date-picker>
               </template>
             </div>
           </el-tooltip>

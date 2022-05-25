@@ -3,7 +3,6 @@ import DForm from '@/base-ui/d-form'
 import DTable from '@/base-ui/d-table'
 import { getFormValue } from '@/utils'
 import { reset } from '@/hook'
-import { computed } from '@vue/reactivity';
 
 const props = defineProps({
 
@@ -14,9 +13,9 @@ const props = defineProps({
   },
 
   // 表格的数据
-  tableData: {
-    type: Array,
-    default: () => []
+  table: {
+    type: Object,
+    default: () => { }
   },
 
   // 表格的列
@@ -31,22 +30,11 @@ const props = defineProps({
     default: true
   },
 
-  // 表格数据总条数
-  total: {
-    type: Number
+  // 分页
+  pagination: {
+    type: Object,
+    default: () => { }
   },
-
-  // 当前页数
-  currentPage: {
-    type: Number,
-    default: 1
-  },
-
-  // 一页显示的条数
-  pageSize: {
-    type: Number,
-    default: 15
-  }
 })
 
 // emit
@@ -104,15 +92,16 @@ const currentChange = (value) => {
   <section class="table-page">
     <d-form ref="searchForm" v-bind="{
       formItem,
-      model: formValue,
-      inline: true
+      form: {
+        model: formValue,
+      }
     }">
       <template #search>
         <el-button type="primary" @click="search(formValue)">查询</el-button>
         <el-button type="default" @click="reset(formValue, defaultValue, search)">重置</el-button>
       </template>
     </d-form>
-    <d-table v-bind="{ tableData, tableColumn, total, currentPage, pageSize }" v-on="{
+    <d-table v-bind="{ table, tableColumn, pagination }" v-on="{
       sizeChange,
       currentChange
     }">

@@ -18,6 +18,7 @@ export const tableColumn = reactive([
   {
     prop: 'num',
     label: '数量',
+    sortable: true
   },
   {
     prop: 'status',

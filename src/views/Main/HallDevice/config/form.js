@@ -1,7 +1,9 @@
 
 export const formItem = reactive({
-  month: {
-    type: 'month',
-    label: '月份'
+  mainType: {
+    type: 'select',
+    label: '一级分类',
+    options: [],
+    key: 'mainType'
   }
 })
