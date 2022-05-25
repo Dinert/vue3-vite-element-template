@@ -41,7 +41,6 @@ export const useWindowInfoInput = defineStore('windowInfoInput', {
 
         // 判断是否有参数
         const isParams = !(_.isEmpty(params))
-        console.log(params, 'aaaaaaaaaaaa')
 
         // 有就过滤表格中的数据
         if (isParams) {

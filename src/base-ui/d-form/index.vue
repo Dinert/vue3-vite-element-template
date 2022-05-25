@@ -121,7 +121,7 @@ defineExpose({
     ...form
   }" ref="formRef" :class="{ packUp: !packUp }">
     <el-row v-bind="{gutter: 20, ...row}" class="el-form-left">
-      <el-col v-bind="colLayout" v-for="(item, key, index) in formItem" :class="[form.type]">
+      <el-col v-bind="colLayout" v-for="(item, key, index) in formItem" :class="[item.type]">
         <el-form-item v-bind="{
           key: key,
           prop: key,

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ElMessage, ElLoading } from 'element-plus'
-import { storage } from '@/utils'
+import { storage, type } from '@/utils'
 import router from "../router";
 
 const instance = axios.create({
@@ -34,10 +34,11 @@ const errorHandle = (data) => {
 
 // 请求拦截器
 instance.interceptors.request.use(config => {
-  config.loading = config.loading || {}
-  config.loading.isLoading = config.loading.isLoading || true
+
   // 加载条
-  if (loadingArr && loadingArr.length === 0 && config.loading.isLoading) {
+  config.loading = config.loading || {}
+  config.loading = JSON.stringify(config.loading) === '{}' ? true : config.loading
+  if (loadingArr && loadingArr.length === 0 && config.loading) {
     loading = ElLoading.service({
       text: 'Loading',
       background: 'rgba(0, 0, 0, 0.2)',
@@ -64,15 +65,26 @@ instance.interceptors.request.use(config => {
 // 响应拦截器
 instance.interceptors.response.use(response => {
   const data = response.data
-  errorHandle(data)
+
+  // 去除加载动画
   loadingArr.pop()
   if (loadingArr && loadingArr.length === 0) {
     loading && loading.close && loading.close()
   }
+
+  // 加载完成的提示
+  const config = response.config
+  config.message = config.message || {}
+  if(JSON.stringify(config.message) !== '{}' && type(config.message) === 'object') {
+    ElMessage(config.message)
+  }
+
+
   return data && data.data
 }, error => {
 
   errorHandle(error)
+  // 去除加载动画
   loadingArr.pop()
   if (loadingArr && loadingArr.length === 0) {
     loading && loading.close && loading.close()

@@ -49,3 +49,12 @@ export const resize = (resize, delay = 100, immediate = false) => {
     resize()
   }
 }
+
+// 重写判断类型
+export const type = type => {
+  return Object.prototype.toString
+    .call(type)
+    .split(' ')[1]
+    .split(']')[0]
+    .toLocaleLowerCase()
+}
