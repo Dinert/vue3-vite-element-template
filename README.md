@@ -1,7 +1,70 @@
-# Vue 3 + Vite
+# Vue3 + vite + elementPlus模板
+<a href="https://github.com/vuejs/core/tree/v3.2.25">
+    <img src="https://img.shields.io/badge/vue-3.2.25-brightgreen" alt="vue">
+</a>
+<a href="https://github.com/element-plus/element-plus/tree/2.1.11">
+    <img src="https://img.shields.io/badge/element--plus-2.1.11-brightgreen" alt="element-plus">
+</a>
+## 技术栈
+`Vue3`
+`vite`
+`element-plus`
+`pinia`
+`vue-router@4`
+`lodash`
+`nprogress`
+`dayjs`
+`axios`
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## 项目目录
+```
+├─public
+└─src
+    ├─assets
+    │  ├─img
+    │  │  └─login
+    │  └─style
+    │      └─scss
+    ├─base-ui
+    │  ├─d-dialog
+    │  ├─d-form
+    │  │  └─config
+    │  └─d-table
+    │      └─config
+    ├─components
+    │  └─common
+    │      ├─nav-banner
+    │      ├─nav-menu
+    │      └─table-page
+    ├─directive
+    ├─global
+    │  └─js
+    ├─hook
+    ├─router
+    ├─service
+    ├─store
+    ├─theme
+    ├─utils
+    └─views
+        ├─Home
+        ├─Login
+        ├─Main
+        │  ├─Admin
+        │  │  ├─Organization
+        │  │  ├─Roles
+        │  │  └─Users
+        │  ├─Attendance
+        │  │  └─config
+        │  ├─GovernmentEntry
+        │  │  └─config
+        │  ├─HallDevice
+        │  │  └─config
+        │  ├─MonthStar
+        │  │  └─config
+        │  ├─Rate
+        │  │  └─config
+        │  └─WindowInfoInput
+        │      └─config
+        └─NotFound
+```
 
-## Recommended IDE Setup
-
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
