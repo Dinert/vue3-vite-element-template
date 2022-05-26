@@ -5,6 +5,7 @@
 <a href="https://github.com/element-plus/element-plus/tree/2.1.11">
     <img src="https://img.shields.io/badge/element--plus-2.1.11-brightgreen" alt="element-plus">
 </a>
+
 ## 技术栈
 `Vue3`
 `vite`
@@ -67,4 +68,7 @@
         │      └─config
         └─NotFound
 ```
+## 使用
+`npm install`
 
+`npm run dev`
