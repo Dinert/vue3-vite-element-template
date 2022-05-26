@@ -42,14 +42,6 @@ export const firstUpperCase = (str) => {
   return str.replace(/^\S/, s => s.toUpperCase())
 }
 
-// 监听窗口缩放
-export const resize = (resize, delay = 100, immediate = false) => {
-  if(typeof resize === 'function') {
-    window.addEventListener('resize', _.debounce(resize, delay), immediate)
-    resize()
-  }
-}
-
 // 重写判断类型
 export const type = type => {
   return Object.prototype.toString

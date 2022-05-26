@@ -158,7 +158,7 @@ getClassfiyData()
   padding: 16px;
   display: flex;
   flex-direction: column;
-
+  overflow: auto;
 
   &-header {
     text-align: right;
@@ -192,6 +192,10 @@ getClassfiyData()
   &-footer {
     margin-top: 16px;
     display: flex;
+    .el-pagination{
+      display: flex;
+      flex-wrap: wrap;
+    }
   }
 
 }

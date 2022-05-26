@@ -3,7 +3,6 @@ import NavMenu from "@/components/common/nav-menu";
 import NavBanner from "@/components/common/nav-banner";
 import { useLoginStore } from "@/store";
 import { storage } from "@/utils";
-import { watch } from "vue";
 
 
 // init
@@ -31,18 +30,12 @@ const collapseClick = () => {
   collapse.value = !collapse.value;
 };
 
-const aaa = (aaa) => {
-  console.log(aaa, 'aaaaaaaaaaaaa')
-}
-
-
-
 </script>
 
 <template>
   <el-container>
     <el-header>
-      <h1 class="el-header-title">政务服务监督在线系统数据录入系统</h1>
+      <h1 class="el-header-title text-dot">政务服务监督在线系统数据录入系统</h1>
       <div class="el-header-operation">
         <span class="el-header-operation-item el-header-operation-changePassword">修改密码</span>
         <span class="el-header-operation-item el-header-operation-logout" @click="logout">

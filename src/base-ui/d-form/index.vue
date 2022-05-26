@@ -1,24 +1,25 @@
 <script setup>
-import { firstUpperCase, resize } from '@/utils'
+import { firstUpperCase } from '@/utils'
+import useWindowResize from '@/hook/useWindowResize'
 
 // props
 defineProps({
   ref,
   formItem: {
     type: Object,
-    default: () => {},
+    default: () => { },
   },
   model: {
     type: Object,
-    default: () => {},
+    default: () => { },
   },
   form: {
     type: Object,
-    default: () => {}
+    default: () => { }
   },
   row: {
     type: Object,
-    default: () => {}
+    default: () => { }
   },
   colLayout: {
     type: Object,
@@ -39,22 +40,7 @@ defineProps({
 });
 
 // mounted
-onMounted(() => {
-  // 监听winodw窗口缩放
-  resize(() => {
-    const elFormLeft = document.querySelector('.el-form-left')
-    const clientHeight = elFormLeft.clientHeight
-    
-    if (clientHeight > elFormHeight.value) {
-      isArrow.value = true
-    } else {
-      if (!packUp.value) {
-        packUp.value = true
-      }
-      isArrow.value = false
-    }
-  })
-})
+
 
 // data
 const formRef = ref(null)
@@ -64,6 +50,21 @@ const isArrow = ref(false) // 是否显示展示操作
 const packUp = ref(true)
 
 // methods
+
+// 监听winodw窗口缩放
+useWindowResize(() => {
+  const elFormLeft = document.querySelector('.el-form-left')
+  const clientHeight = elFormLeft.clientHeight
+  console.log('aaaaaaaa')
+  if (clientHeight > elFormHeight.value) {
+    isArrow.value = true
+  } else {
+    if (!packUp.value) {
+      packUp.value = true
+    }
+    isArrow.value = false
+  }
+})
 
 // 展开还是收起状态
 const unfold = () => {
@@ -120,7 +121,7 @@ defineExpose({
     inline: true,
     ...form
   }" ref="formRef" :class="{ packUp: !packUp }">
-    <el-row v-bind="{gutter: 20, ...row}" class="el-form-left">
+    <el-row v-bind="{ gutter: 20, ...row }" class="el-form-left">
       <el-col v-bind="colLayout" v-for="(item, key, index) in formItem" :class="[item.type]">
         <el-form-item v-bind="{
           key: key,
@@ -145,21 +146,21 @@ defineExpose({
             <div @mouseenter="mouseEnter(index, item)">
               <span class="temp-tooltip">{{ getTooltipValue(form.model[key], item) }}</span>
               <template v-if="['input'].includes(item.type)">
-                <el-input clearable v-model="form.model[key]" v-bind="item" v-on="{...item.on}"></el-input>
+                <el-input clearable v-model="form.model[key]" v-bind="item" v-on="{ ...item.on }"></el-input>
               </template>
               <template v-else-if="['select'].includes(item.type)">
-                <el-select clearable v-model="form.model[key]" v-bind="item" v-on="{...item.on}">
+                <el-select clearable v-model="form.model[key]" v-bind="item" v-on="{ ...item.on }">
                   <el-option v-for="options in item.options" v-bind="{
                     value: options.value,
                     label: options.label
-                  }" v-on="{...item.on}">
+                  }" v-on="{ ...item.on }">
                     <slot :name="item.type + firstUpperCase(key)" :options="options"></slot>
                   </el-option>
                 </el-select>
               </template>
               <template
                 v-else-if="['datetime', 'date', 'week', 'month', 'year', 'datetimerange', 'daterange', 'monthrange', 'yearrange'].includes(item.type)">
-                <el-date-picker clearable v-model="form.model[key]" v-bind="item" v-on="{...item.on}"></el-date-picker>
+                <el-date-picker clearable v-model="form.model[key]" v-bind="item" v-on="{ ...item.on }"></el-date-picker>
               </template>
             </div>
           </el-tooltip>
@@ -184,7 +185,7 @@ defineExpose({
   background-color: var(--el-bg-color);
   border-radius: var(--el-bg-radius);
   display: flex;
-  overflow: hidden;
+  overflow: auto;
   transition: var(--el-transition-all);
   max-height: 300px;
   min-height: 50px;
@@ -200,14 +201,16 @@ defineExpose({
       &.datetimerange {
         min-width: 450px;
       }
-      &.date{
+
+      &.date {
         min-width: 210px;
       }
-      &.month{
+
+      &.month {
         min-width: 190px;
       }
 
-      &.select{
+      &.select {
         min-width: 230px;
       }
     }
@@ -216,6 +219,7 @@ defineExpose({
   &-right {
     margin-left: 20px;
     min-width: 150px;
+
     &-operation {
       &.el-button.is-text {
         background-color: unset;
