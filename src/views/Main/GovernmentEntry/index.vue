@@ -1,5 +1,5 @@
 <script setup>
-import DTable from '@/base-ui/d-table'
+import { DTable } from '@dinert/element-plus'
 import { tableColumn } from './config/table';
 import { useGovernmentEntry } from '@/store'
 const government = useGovernmentEntry()
@@ -46,7 +46,7 @@ for (let i = 0; i < tables.length; i++) {
 
   // height: 1005;
   .d-table {
-    height: 80px;
+    height: 112px;
   }
 }
 </style>

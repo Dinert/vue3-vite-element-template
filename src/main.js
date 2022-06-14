@@ -3,6 +3,7 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import directives from './directive'
+import plugins from './plugins'
 
 // 图标 
 import 'https://at.alicdn.com/t/font_3370983_ozossfu4xp.js'
@@ -22,4 +23,5 @@ import '@/theme/default.scss'
 const app = createApp(App)
 app.use(createPinia())
 app.use(directives)
+app.use(plugins)
 app.use(router).mount('#app')
