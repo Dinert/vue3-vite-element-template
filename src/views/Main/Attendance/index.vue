@@ -1,5 +1,5 @@
 <script setup>
-import TablePage from '@/components/common/table-page'
+import { TablePage, getFormValue, filterNullStrUndefind } from '@dinert/element-plus'
 import { formItem } from './config/form'
 import { tableColumn } from './config/table'
 import { useAttendanceStore } from '@/store'
@@ -14,13 +14,12 @@ const filter = computed(() => {
   return attendanceStore.getFilter
 })
 
-// methods
-attendanceStore.ajaxTableData()
-
 // 查询
 const search = (params) => {
   attendanceStore.ajaxTableData(params)
 }
+search(filterNullStrUndefind(getFormValue(formItem)))
+
 
 // 当前页条数
 const sizeChange = (value) => {
@@ -36,7 +35,7 @@ const currentChange = (value) => {
 
 <template>
   <table-page v-bind="{
-    formItem, tableColumn, table: {data: tableData},
+    formItem, tableColumn, table: { data: tableData },
     pagination: filter
   }" v-on="{
   search,

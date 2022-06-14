@@ -1,5 +1,5 @@
 <script setup>
-import TablePage from '@/components/common/table-page'
+import { TablePage, getFormValue, filterNullStrUndefind } from '@dinert/element-plus'
 import { formItem } from './config/form'
 import { tableColumn } from './config/table'
 import { useStar } from '@/store'
@@ -29,6 +29,8 @@ const swichChange = (row) => {
 const search = (params) => {
   star.ajaxTableData(params)
 }
+search(filterNullStrUndefind(getFormValue(formItem)))
+
 
 // 当前页条数
 const sizeChange = (value) => {

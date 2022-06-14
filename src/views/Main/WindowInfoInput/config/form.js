@@ -9,6 +9,7 @@ export const formItem = reactive({
       {value: '专窗', label: '专窗'}, 
       {value: '咨询台', label: '咨询台'}, 
     ],
+    value: '一口受理'
   },
   name: {
     type: 'input',

@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import request from '@/service/request'
 import _ from 'lodash'
-import {paginations} from '@/base-ui/d-table/config'
+import {paginations} from '@/config'
 
 export const useWindowInfoInput = defineStore('windowInfoInput', {
   state: () => ({
@@ -66,7 +66,7 @@ export const useWindowInfoInput = defineStore('windowInfoInput', {
         } else {
           this.tableData = tableData
         }
-
+        console.log(this.tableData, 'this.tableDatathis.tableDatathis.tableData')
         this.filter.total = this.tableData.length
         resolve(this.tableData)
       })

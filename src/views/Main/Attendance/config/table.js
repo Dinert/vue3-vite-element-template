@@ -17,6 +17,5 @@ export const tableColumn = reactive([
     prop: 'unAttendance',
     label: '未到岗人数',
     sortable: true
-
   }
 ])

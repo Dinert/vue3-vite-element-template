@@ -1,5 +1,4 @@
-
-export const paginations = {
+export default {
   pageSize: 15,
   currentPage: 1
 }

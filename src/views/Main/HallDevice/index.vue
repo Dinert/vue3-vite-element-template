@@ -1,5 +1,6 @@
 <script setup>
-import TablePage from '@/components/common/table-page'
+import { TablePage, getFormValue, filterNullStrUndefind } from '@dinert/element-plus'
+
 import { formItem } from './config/form'
 import { tableColumn } from './config/table'
 import { useHallDeviceStore } from '@/store'
@@ -15,12 +16,12 @@ const filter = computed(() => {
 })
 
 // methods
-hallDevice.ajaxTableData()
 
 // 查询
 const search = (params) => {
   hallDevice.ajaxTableData(params)
 }
+search(filterNullStrUndefind(getFormValue(formItem)))
 
 // 当前页条数
 const sizeChange = (value) => {

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import request from '@/service/request'
 import _ from 'lodash'
-import { paginations } from '@/base-ui/d-table/config'
+import { paginations } from '@/config'
 
 export const useGovernmentEntry = defineStore('governmentEntry', {
   state: () => ({

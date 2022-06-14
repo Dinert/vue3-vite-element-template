@@ -2,7 +2,7 @@
 export const getFormValue = (formItem) => {
   let result = {}
   for(const prop in formItem) {
-    result[prop] = ''
+    result[prop] = formItem[prop]
   }
   return result
 }

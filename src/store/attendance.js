@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import request from '@/service/request'
 import _ from 'lodash'
 import dayjs from "dayjs";
-import {paginations} from '@/base-ui/d-table/config'
+import {paginations} from '@/config'
 
 export const useAttendanceStore = defineStore('attendance', {
   state: () => ({
@@ -54,7 +54,7 @@ export const useAttendanceStore = defineStore('attendance', {
               let paramsVal = params[prop]
               let itemVal = data[prop]
               
-              if(prop === 'month') {
+              if(prop === 'date') {
                 paramsVal = dayjs(paramsVal).format('YYYY-MM-DD')
                 itemVal = dayjs(itemVal).format('YYYY-MM-DD')
               }

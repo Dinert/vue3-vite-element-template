@@ -1,6 +1,5 @@
 <script setup>
-import TablePage from '@/components/common/table-page'
-import DDialog from '@/base-ui/d-dialog'
+import { TablePage, getFormValue, filterNullStrUndefind, DDialog } from '@dinert/element-plus'
 import { formItem } from './config/form'
 import { tableColumn } from './config/table'
 import { useWindowInfoInput } from '@/store'
@@ -20,9 +19,6 @@ const filter = computed(() => {
   return windowInfoInput.getFilter
 })
 
-// methods
-windowInfoInput.ajaxTableData()
-
 // 开关状态改变
 const swichChange = (row) => {
 }
@@ -31,6 +27,9 @@ const swichChange = (row) => {
 const search = (params) => {
   windowInfoInput.ajaxTableData(params)
 }
+
+search(filterNullStrUndefind(getFormValue(formItem)))
+
 
 // 当前页条数
 const sizeChange = (value) => {

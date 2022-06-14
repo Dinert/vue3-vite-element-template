@@ -1,5 +1,6 @@
 <script setup>
-import TablePage from '@/components/common/table-page'
+import { TablePage, getFormValue, filterNullStrUndefind } from '@dinert/element-plus'
+
 import { formItem } from './config/form'
 import { tableColumn } from './config/table'
 import { useRateStore } from '@/store'
@@ -13,14 +14,12 @@ const tableData = computed(() => {
 const filter = computed(() => {
   return rate.getFilter
 })
-
-// methods
-rate.ajaxTableData()
-
 // 查询
 const search = (params) => {
   rate.ajaxTableData(params)
 }
+search(filterNullStrUndefind(getFormValue(formItem)))
+
 
 // 当前页条数
 const sizeChange = (value) => {
