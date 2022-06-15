@@ -17,10 +17,10 @@
   resolved "https://registry.yarnpkg.com/@ctrl/tinycolor/-/tinycolor-3.4.1.tgz#75b4c27948c81e88ccd3a8902047bcd797f38d32"
   integrity sha512-ej5oVy6lykXsvieQtqZxCOaLT+xD4+QNarq78cIYISHmZXshCvROLudpQN3lfL8G0NL7plMSSK+zlyvCaIJ4Iw==
 
-"@dinert/element-plus@^0.3.6-beta.2":
-  version "0.3.6-beta.2"
-  resolved "https://registry.yarnpkg.com/@dinert/element-plus/-/element-plus-0.3.6-beta.2.tgz#a09f497994be21db62a6f2e3ac59f6e04ab0c9d3"
-  integrity sha512-Fem0ul6VqUcM9BvPQ2OkgfUvP6smI9ZwAmsGGmvxMdCGuKA2OrHHiu+Pywna8qnpMvEw++SHUZzXpI3UjPQKUg==
+"@dinert/element-plus@^0.3.6-beta.5":
+  version "0.3.6-beta.5"
+  resolved "https://registry.yarnpkg.com/@dinert/element-plus/-/element-plus-0.3.6-beta.5.tgz#4599a4c4f51e1ce9489ded729c49508f344d4116"
+  integrity sha512-RwlvYn+fPcw2nQGPlsOiSPG1OZm9irnS0LBo15ztw6GizX3FgJO5WD+nrAJ3GDAB+N+PLYdKFWkLQBZiA09Z0Q==
 
 "@element-plus/icons-vue@^1.1.4":
   version "1.1.4"
