@@ -8,7 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@dinert/element-plus": "^0.3.6-beta.6",
+    "@dinert/element-plus": "^0.3.6-beta.9",
     "axios": "^0.27.2",
     "dayjs": "^1.11.1",
     "element-plus": "2.1.11",

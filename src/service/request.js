@@ -19,7 +19,6 @@ const errorHandle = (data) => {
       message: data.msg,
       type: 'error'
     })
-
     if(data.msg === '用户凭证已过期！') {
       storage('localStorage', 'clear', 'zwjd-token')
       router.push('/login')
@@ -78,7 +77,7 @@ instance.interceptors.response.use(response => {
   if(JSON.stringify(config.message) !== '{}' && type(config.message) === 'object') {
     ElMessage(config.message)
   }
-
+  errorHandle(data)
 
   return data && data.data
 }, error => {
